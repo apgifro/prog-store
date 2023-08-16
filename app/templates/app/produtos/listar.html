@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if categoria %}
+    <h3>{{ categoria }}</h3>
+    {% endif %}
+
+    <h2>Categorias disponíveis</h2>
+    <ul>
+    {% for c in categorias %}
+        <li>{{ c.nome }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Produtos</h2>
+    <ol>
+    {% for p in produtos %}
+        <li>{{ p.nome }}</li>
+    {% endfor %}
+    </ol>
+</body>
+</html>
