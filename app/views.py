@@ -19,6 +19,7 @@ class ProdutoListView(ListView):
             self.queryset = self.queryset.filter(categoria=categoria)
         contexto['categoria'] = categoria
         contexto['categorias'] = categorias
+        return contexto
 
 
 class ProdutoDetailView(DetailView):
