@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{ produto.nome }}
-{{ produto.preco }}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+      <img class="h-100" src="{{ produto.imagem.url }}" alt="..." />
+      <p></p>
+    <h1 class="text-body-emphasis">{{produto.nome}}</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted">
+        {{produto.descricao}}
+    </p>
+    <div class="d-inline-flex gap-2 mb-5">
+
+      <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+        Adicionar ao carrinho <i class="bi-cart-fill me-1"></i>
+      </button>
+
+    </div>
+        <li>
+        {{produto.categoria}}
+    </li>
+  </div>
+
+</div>
+
+{% endblock %}
