@@ -1,26 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% if categoria %}
-    <h3>{{ categoria }}</h3>
-    {% endif %}
+{% extends 'base.html' %}
 
-    <h2>Categorias disponíveis</h2>
-    <ul>
-    {% for c in categorias %}
-        <li>{{ c.nome }}</li>
-    {% endfor %}
-    </ul>
+{% block conteudo %}
 
-    <h2>Produtos</h2>
-    <ol>
-    {% for p in produtos %}
-        <li>{{ p.nome }}</li>
-    {% endfor %}
-    </ol>
-</body>
-</html>
+{% for p in produtos %}
+
+<div class="col mb-5">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top" src="{{ p.imagem.url }}" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">{{ p.nome }}</h5>
+                <!-- Product price-->
+                R$ {{ p.preco }}
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'detalheprod' p.id p.slug %}">Ver mais</a></div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}
