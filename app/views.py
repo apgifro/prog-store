@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView, TemplateView
 
 from app.models import Categoria, Produto
+from cart.forms import CarrinhoAddProdutoForm
 
 
 class IndexView(TemplateView):
@@ -41,3 +42,10 @@ class ProdutoListView(ListView):
 class ProdutoDetailView(DetailView):
     template_name = 'app/produtos/detalhe.html'
     model = Produto
+
+    def get_context_data(self, **kwargs):
+        cont = super().get_context_data(**kwargs)
+        cont['categorias'] = Categoria.objects.all()
+        formaddcar = CarrinhoAddProdutoForm()
+        cont['formadd'] = formaddcar
+        return cont
