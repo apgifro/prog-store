@@ -12,8 +12,8 @@
     </p>
     <div class="d-inline-flex gap-2 mb-5">
 
-    <form action="{% url 'addcarrinho' produto.id %}" method="post">
-            {% formadd %}
+    <form action="{% url 'carrinhoadd' produto.id %}" method="post">
+            {{ formadd }}
           {% csrf_token %}
           <input type="submit" class="btn btn-outline-dark mt-auto" value="Adicionar ao carrinho">
     </form>

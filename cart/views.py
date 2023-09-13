@@ -12,14 +12,16 @@ class CarrinhoAdd(FormView):
 
     def post(self, request, *args, **kwargs):
         self.produto = Produto.objects.get(id=kwargs['idprod'])
-        return redirect('carrinhodetalhe')
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         cd = form.cleaned_data
         carrinho = Carrinho(self.request)
         carrinho.add_produto(produto=self.produto,
-                             quantidade=cd['quantidade'],
-                             alterarquantidade=cd['mudaquant'])
+                            quantidade=cd['quantidade'],
+                            alterarquantidade=cd[
+                                'atualizar'])
+        print(cd['atualizar'])
         return super().form_valid(form)
 
 
@@ -38,7 +40,7 @@ class CarrinhoDetalhe(TemplateView):
         contexto = super().get_context_data(**kwargs)
         carrinho = Carrinho(self.request)
         for item in carrinho:
-            item['atualizarquant'] = CarrinhoAddProdutoForm(initial={'quantidade': item['quantidade'],
-                                                                     'alterarquantidade': True})
+            item['atualizarquantform'] = CarrinhoAddProdutoForm(initial={'quantidade': item['quantidade'],
+                                                                         'alterarquantidade': True})
         contexto['carrinho'] = carrinho
         return contexto
