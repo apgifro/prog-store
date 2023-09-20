@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n0&ra_-xrb0_bk_km*i9xpcknvtp$&92%co8!%y0buplx)-gn7'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
-    'app', 'cart', 'orders'
+    'app', 'cart', 'orders', 'payments'
 ]
 
 MIDDLEWARE = [
@@ -76,26 +80,14 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'store',
-#         'USER': 'root',
-#         'PASSWORD': 'alunoifro',
-#         'PORT': '3306',
-#         'HOST': 'localhost'
-#     }
-# }
-
-# macOS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'store',
-        'USER': 'root',
-        'PASSWORD': '',
-        'PORT': '3306',
-        'HOST': 'localhost'
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'PORT': env('DATABASE_PORT'),
+        'HOST': env('DATABASE_HOST')
     }
 }
 
@@ -146,3 +138,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CARRINHO_SESSION_ID = 'car'
+
+BRAINTREE_MERCHANT_ID = env('BRAINTREE_MERCHANT_ID')
+BRAINTREE_PUBLIC_KEY = env('BRAINTREE_PUBLIC_KEY')
+BRAINTREE_PRIVATE_KEY = env('BRAINTREE_PRIVATE_KEY')

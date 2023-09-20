@@ -1,9 +1,10 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
 from cart.carrinho import Carrinho
 from orders.forms import PedidoModelForm
-from .models import ItemPedido
+from .models import ItemPedido, Pedido
 
 
 class PedidoCreateView(CreateView):
@@ -20,8 +21,14 @@ class PedidoCreateView(CreateView):
                                       preco=item['preco'],
                                       quantidade=item['quantidade'])
         car.limpar()
-        return super().form_valid(form)
+        self.request.session['idpedido'] = pedido.id
+        return redirect('resumopedido', idpedido=pedido.id)
 
 
 class ResumoPedidoTemplateView(TemplateView):
     template_name = 'resumopedido.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['pedido'] = Pedido.objects.get(id=self.kwargs['idpedido'])
+        return ctx

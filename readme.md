@@ -1,5 +1,11 @@
 # Loja
 
+# 23-09-19
+
+```
+pip install braintree django-environ
+```
+
 # 23-09-12
 
 ![](readme/3.png)

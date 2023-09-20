@@ -20,7 +20,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for item in carrinho %}
+                                        {% for item in pedido.itens_pedido.all %}
                                             {% with produto=item.produto %}
                                             <tr>
                                                 <td>
@@ -36,17 +36,22 @@
                                                     {{ item.quantidade }}
                                                 </td>
                                                 <td>R${{ item.preco }}</td>
-                                                <td>R${{ item.preco_total }}</td>
+                                                <td>R${{ item.get_custo }}</td>
                                             </tr>
                                             {% endwith %}
                                         {% endfor %}
                                             <tr>
                                                 <td>Total</td>
-                                                <td colspan="4"></td>
-                                                <td>R${{ carrinho.get_preco_total }}</td>
+                                                <td colspan="3"></td>
+                                                <td>R${{ pedido.get_total }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-success">
+                                            Efetuar pagamento
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
