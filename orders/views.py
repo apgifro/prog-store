@@ -22,7 +22,11 @@ class PedidoCreateView(CreateView):
                                       quantidade=item['quantidade'])
         car.limpar()
         self.request.session['idpedido'] = pedido.id
+        form.send_email(pedido)
         return redirect('resumopedido', idpedido=pedido.id)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 
 class ResumoPedidoTemplateView(TemplateView):
