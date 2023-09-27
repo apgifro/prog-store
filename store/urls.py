@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('carrinho/', include('cart.urls')),
     path('pedido/', include('orders.urls')),
+    path('pagamento/', include('payments.urls', namespace='pagamento')),
 ]
 
 if settings.DEBUG:

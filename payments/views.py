@@ -46,3 +46,14 @@ class ProcessarPagamento(FormView):
             return self.render_to_response(context)
 
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reversed('pagamento:realizado')
+
+
+class PagamentoRealizadoView(TemplateView):
+    template_name = 'pagamento/realizado.html'
+
+
+class PagamentoCanceladoView(TemplateView):
+    template_name = 'pagamento/cancelado.html'
